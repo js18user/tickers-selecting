@@ -20,9 +20,9 @@ The task must run continuously and is completed by "Ctrl C"
 There can be several crypto currency exchanges and the processes must be parallel.
 
 List and functions of the presented scripts:
-- m8bibabce.py this program to perform a task with cryptocurrency exchange Binance
+- m8bilance.py  this program to perform a task with cryptocurrency exchange Bilance
 - m8poloniex.py this program to perform a task with cryptocurrency exchange Poloniex
-- main.py  ершыis the main program
+- main.py       the main program
 - m8_sql_query.py this is a module containing SQL queries in the database
 - requirements.txt no comments
-- m8query.yaml this is a file with request parameters  
+- m8query.yaml  this is a file with request parameters  
