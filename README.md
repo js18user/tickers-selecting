@@ -30,4 +30,8 @@ List and functions of the presented scripts:
   - interspace - time in seconds for selecting tickers and storing them in the database
   - сloud - DB selection sign
     - False- for debugging localhost
-    - True -  for work, the database is relevant, you can work  
+    - True -  for work, the database is relevant, you can work
+This publication shows how to work with two cryptocurrency exchanges:
+- Binance
+- Poloniex
+In the working version, work with 20 cryptocurrency exchanges is implemented  
