@@ -25,4 +25,9 @@ List and functions of the presented scripts:
 - main.py       the main program
 - m8_sql_query.py this is a module containing SQL queries in the database
 - requirements.txt no comments
-- m8query.yaml  this is a file with request parameters  
+- m8query.yaml  this is a file with request parameters
+  - teckers - list of tickers
+  - interspace - time in seconds for selecting tickers and storing them in the database
+  - сloud - DB selection sign
+    - False- for debugging localhost
+    - True -  for work, the database is relevant, you can work  
