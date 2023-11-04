@@ -10,14 +10,14 @@ from m8binance import m8binance
 from m8poloniex import m8poloniex
 
 
-async def main(file: any, interspace: int, cloud_db: bool):
+async def main():
     class InitTask:
-        def __init__(self, name, ):
-            self.__name: str = name
-            self.__url: str = ''
-            self.__interspace: int = interspace
-            self.__tickers: list = []
-            self.__cloud_db: bool = cloud_db
+        def __init__(self, ):
+            self.__name: str = 'm8_query.yaml'
+            self.__url: str
+            self.__interspace: int
+            self.__tickers: list
+            self.__cloud_db: bool
             logging.basicConfig(level=logging.INFO, format=f"%({time_type})s : %(message)s", )
             match os.path.exists(self.__name):
                 case True:
@@ -25,8 +25,10 @@ async def main(file: any, interspace: int, cloud_db: bool):
                     match isinstance(_m8_query, dict, ):
                         case True:
                             match _m8_query:
-                                case {"db": _, "db_vps": _, "tickers": _, }:
+                                case {"cloud": _, "db": _, "db_vps": _, "interspace": _, "tickers": _, }:
                                     self.__tickers = _m8_query['tickers']
+                                    self.__interspace = _m8_query['interspace']
+                                    self.__cloud_db = _m8_query['cloud']
                                     match self.__cloud_db:
                                         case True:
                                             self.__url = _m8_query['db_vps']
@@ -44,6 +46,21 @@ async def main(file: any, interspace: int, cloud_db: bool):
                 case False:
                     logging.info(f'No query')
                     exit()
+
+        async def db_init(self):
+            _connect = await asyncpg.connect(self.__url, )
+            async with _connect.transaction():
+                await _connect.fetch(sql_create_table_query, )
+            await _connect.close()
+            
+        async def ws_start(self):
+            async with asyncpg.create_pool(self.__url, min_size=2,  max_size=2, ) as _db:
+                _wss = [
+                        m8binance(self.__interspace, _db, self.__tickers, ),
+                        m8poloniex(self.__interspace, _db, self.__tickers, ),
+                ]
+
+                await asyncio.gather(*_wss, )
 
         @property
         def name(self) -> str:
@@ -64,36 +81,19 @@ async def main(file: any, interspace: int, cloud_db: bool):
         @property
         def cloud_db(self) -> bool:
             return self.__cloud_db
-
     try:
-        task = InitTask(name=file, )
-
-        con = await asyncpg.connect(task.url, )
-        async with con.transaction():
-            await con.fetch(sql_create_table_query, )
-        await con.close()
-
-        async with asyncpg.create_pool(task.url, min_size=2, max_size=6, ) as db:
-            wss: list = [
-                         m8binance(task.interspace, db, task.tickers, ),
-                         m8poloniex(task.interspace, db, task.tickers, ),
-            ]
-            await asyncio.gather(*wss, )
+        task = InitTask()
+        await task.db_init()
+        await task.ws_start()
 
     except KeyboardInterrupt:
         pass
     except (Exception, ValueError, TypeError, ) as error:
         logging.info(f'main() error: {error}')
     finally:
-        await db.close()
         pass
 try:
-    asyncio.run(
-        main(
-            file="m8query.yaml",
-            interspace=8,
-            cloud_db=False,
-        ),
-    )
+    asyncio.run(main())
+    
 except KeyboardInterrupt:
     exit()
