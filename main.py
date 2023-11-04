@@ -13,7 +13,7 @@ from m8poloniex import m8poloniex
 async def main():
     class InitTask:
         def __init__(self, ):
-            self.__name: str = 'm8_query.yaml'
+            self.__name: str = 'm8query.yaml'
             self.__url: str
             self.__interspace: int
             self.__tickers: list
