@@ -31,6 +31,7 @@ List and functions of the presented scripts:
   - сloud - DB selection sign
     - False- for debugging localhost
     - True -  for work, the database is relevant, you can work
+
 This publication shows how to work with two cryptocurrency exchanges:
 - Binance
 - Poloniex
