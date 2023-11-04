@@ -35,4 +35,5 @@ List and functions of the presented scripts:
 This publication shows how to work with two cryptocurrency exchanges:
 - Binance
 - Poloniex
+
 In the working version, work with 20 cryptocurrency exchanges is implemented  
