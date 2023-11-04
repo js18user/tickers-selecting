@@ -1,5 +1,7 @@
+cloud: False
 db: postgresql://postgres:aa4401@localhost:5432/fintech
 db_vps: postgresql://cloud_db:aa4401@188.124.38.42:5432/fintech
+interspace: 7
 tickers:
 - btc_eur
 - btc_ars
