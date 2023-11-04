@@ -1,5 +1,6 @@
 # ticker-analysis
 Analysis of cryptocurrency exchange tickers
+
 The software stack for implementing the task is as follows:
 - Python 3.10.9 
 - Websockes
