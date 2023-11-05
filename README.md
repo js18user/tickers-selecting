@@ -10,7 +10,7 @@ The software stack for implementing the task is as follows:
 - Asyncpg
 - SQL
 - Postgresql 14.5  DBaaS  or Localhost
-- WebSocket Binance exchange
+- WebSocket Binance and Poloniex exchanges
 - Logging
 
 Statement of the problem (Technical specifications for programming)
