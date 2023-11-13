@@ -11,4 +11,3 @@ sql_create_table_query = ('CREATE TABLE IF NOT EXISTS tickers '
                           '  big       NUMERIC,   '
                           '  ask       NUMERIC  );'
                           )
-time_type = "asctime"
