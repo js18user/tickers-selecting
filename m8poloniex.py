@@ -2,10 +2,10 @@
 import asyncpg
 import orjson as json
 import time
-import logging
 import websockets
 
-from m8_sql_query import sql_insert_query, time_type
+from loguru import logger as logging
+from m8_sql_query import sql_insert_query
 
 """ Additional Information
 https://docs.poloniex.com/#websocket-api     
@@ -32,7 +32,6 @@ async def m8poloniex(interspace: int, db: asyncpg.Pool, file: list):
     """  It is a main procedure for operate with Poloniex exchange """
 
     try:
-        logging.basicConfig(level=logging.INFO, format=f"%({time_type})s %(message)s", )
         exchange: str = 'poloniex'
         timestamp: str = 'ts'
         symbol: str = 'symbol'
@@ -72,11 +71,11 @@ async def m8poloniex(interspace: int, db: asyncpg.Pool, file: list):
                                 async with con.transaction():
                                     await con.executemany(sql_insert_query, [*tickers.values()], )
                             logging.info(f''
-                                         f'Poloniex{skip}'                                              # You can '#'
-                                         f'{tickers}{skip}'                                           # You can '#'                        
-                                         f' interspace is ---> ({interspace}){skip}'                  # You can '#'
-                                         f' number of tickers received  ---> {ticker_number}{skip}'   # You can '#'
-                                         f'number of tickers inserted---> {len(tickers)}{skip}'         # You can '#'
+                                         f'Poloniex{skip}'                                           # You can '#'                                          
+                                         # f'{tickers}{skip}'                                        # You can '#'                        
+                                         # f' interspace is ---> ({interspace}){skip}'                 # You can '#'
+                                         f' number of tickers received  ---> {ticker_number}{skip}'  # You can '#'
+                                         f'number of tickers inserted---> {len(tickers)}{skip}'      # You can '#'
                                          )
                             ticker_number, start_time, tickers = 0, time.time(), {}
             ping_time = time.time()
@@ -86,6 +85,6 @@ async def m8poloniex(interspace: int, db: asyncpg.Pool, file: list):
         logging.info(f'm8poloniex error: {error}', )
         pass
     finally:
-        logging.info(f'Completion of process Poloniex, interspace: { {interspace} }', )                 # You can '#'
+        logging.info(f'Completion of process Poloniex, interspace: { {interspace} }', )               # You can '#'
         pass
         return ()
