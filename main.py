@@ -2,10 +2,10 @@
 import os
 import yaml
 import asyncio
-import logging
+from loguru import logger as logging
 import asyncpg
 
-from m8_sql_query import sql_create_table_query, time_type
+from m8_sql_query import sql_create_table_query
 from m8binance import m8binance
 from m8poloniex import m8poloniex
 
@@ -18,7 +18,6 @@ async def main():
             self.__interspace: int
             self.__tickers: list
             self.__cloud_db: bool
-            logging.basicConfig(level=logging.INFO, format=f"%({time_type})s : %(message)s", )
             match os.path.exists(self.__name):
                 case True:
                     _m8_query = yaml.safe_load(open(self.__name, "r", ), )
