@@ -3,8 +3,9 @@ import asyncpg
 import orjson as json
 import websockets
 import time
-import logging
-from m8_sql_query import sql_insert_query, time_type
+
+from loguru import logger as logging
+from m8_sql_query import sql_insert_query
 
 """ Additional Information 
  https://binance-docs.github.io/apidocs/futures/en/#all-market-tickers-streams 
@@ -40,8 +41,8 @@ ticker_structure: dict = {
 
 async def m8binance(interspace: int, db: asyncpg.Pool, file: list, ):
     """  It is a main procedure for operate with binance exchange """
+
     try:
-        logging.basicConfig(level=logging.INFO, format=f"%({time_type})s : %(message)s", )
         exchange: str = 'binance'
         timestamp: str = "C"
         symbol: str = 's'
@@ -59,7 +60,7 @@ async def m8binance(interspace: int, db: asyncpg.Pool, file: list, ):
 
                 ticker: dict = json.loads(await wbs.recv(), )
                 ticker_number += 1
-                # logging.info(ticker, )                                                        # You can '#'
+                # await logging.info(ticker, )                                                        # You can '#'
                 tickers[ticker[symbol]]: dict = (
                     exchange,
                     ticker[timestamp],
@@ -75,11 +76,11 @@ async def m8binance(interspace: int, db: asyncpg.Pool, file: list, ):
                             async with con.transaction():
                                 await con.executemany(sql_insert_query, [*tickers.values()], )
                         logging.info(f''
-                                     f'Binance{skip}'                                            # You can '#'
-                                     f'{tickers}{skip}'  # You can '#'                         # You can '#'
-                                     f' interspace is ---> ({interspace}){skip}'               # You can '#'
+                                     f'Binance{skip}'                                          # You can '#'
+                                     # f'{tickers}{skip}'  # You can '#'                         # You can '#'
+                                     # f' interspace is ---> ({interspace}){skip}'               # You can '#'
                                      f"number of tickers received---> {ticker_number}{ skip}"  # You can '#'
-                                     f'number of tickers inserted---> {len(tickers)}{skip}'      # You can '#'
+                                     f'number of tickers inserted---> {len(tickers)}{skip}'    # You can '#'
                                      )
                         ticker_number,  start_time = 0,  time.time()
                         tickers.clear()
