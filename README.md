@@ -1,4 +1,4 @@
-# ticker-analysis
+# tickers selecting
 Analysis of cryptocurrency exchange tickers
 
 The software stack for implementing the task is as follows:
