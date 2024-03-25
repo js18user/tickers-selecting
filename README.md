@@ -37,4 +37,4 @@ This publication shows how to work with two cryptocurrency exchanges:
 - Binance
 - Poloniex
 
-In the working version, work with 20 cryptocurrency exchanges is implemented  
+In the working version, work with 2 cryptocurrency exchanges is implemented  
