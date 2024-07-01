@@ -39,4 +39,5 @@ This publication shows how to work with two cryptocurrency exchanges:
 In the working version, work with 2 cryptocurrency exchanges is implemented
 
 >docker build -t tickers:v10 -f Dockerfile .
+
 >docker run tickers:v10
