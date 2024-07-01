@@ -11,7 +11,6 @@ The software stack for implementing the task is as follows:
 - SQL
 - Postgresql 14.5  DBaaS  or Localhost
 - WebSocket Binance and Poloniex exchanges
-- Logging
 
 Statement of the problem (Technical specifications for programming)
 
@@ -37,4 +36,7 @@ This publication shows how to work with two cryptocurrency exchanges:
 - Binance
 - Poloniex
 
-In the working version, work with 2 cryptocurrency exchanges is implemented  
+In the working version, work with 2 cryptocurrency exchanges is implemented
+
+>docker build -t tickers:v10 -f Dockerfile .
+>docker run tickers:v10
