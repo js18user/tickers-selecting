@@ -4,7 +4,6 @@ import orjson as json
 import websockets
 import time
 
-from loguru import logger as logging
 from m8_sql_query import sql_insert_query
 
 """ Additional Information 
@@ -52,7 +51,7 @@ async def m8binance(interspace: int, db: asyncpg.Pool, file: list, ):
         skip: str = '\n'
         tickers: dict = {}
         url: str = f"wss://stream.binance.com/ws/{'@ticker/'.join(file).replace('_', '')}@ticker"
-        logging.info(f'Start of process Binance exchange, interspace: { {interspace} }{skip}', )  # You can '#'
+        print(f'Start of process Binance exchange, interspace: { {interspace} }{skip}', )  # You can '#'
 
         async with websockets.connect(url, ) as wbs:
             start_time: float = time.time()
@@ -60,7 +59,7 @@ async def m8binance(interspace: int, db: asyncpg.Pool, file: list, ):
 
                 ticker: dict = json.loads(await wbs.recv(), )
                 ticker_number += 1
-                # await logging.info(ticker, )                                                        # You can '#'
+                print(ticker, )                                                        # You can '#'
                 tickers[ticker[symbol]]: dict = (
                     exchange,
                     ticker[timestamp],
@@ -75,10 +74,10 @@ async def m8binance(interspace: int, db: asyncpg.Pool, file: list, ):
                         async with db.acquire() as con:
                             async with con.transaction():
                                 await con.executemany(sql_insert_query, [*tickers.values()], )
-                        logging.info(f''
+                        print(f''
                                      f'Binance{skip}'                                          # You can '#'
-                                     # f'{tickers}{skip}'  # You can '#'                         # You can '#'
-                                     # f' interspace is ---> ({interspace}){skip}'               # You can '#'
+                                     f'{tickers}{skip}'                                        # You can '#'
+                                     f' interspace is ---> ({interspace}){skip}'               # You can '#'
                                      f"number of tickers received---> {ticker_number}{ skip}"  # You can '#'
                                      f'number of tickers inserted---> {len(tickers)}{skip}'    # You can '#'
                                      )
@@ -87,7 +86,7 @@ async def m8binance(interspace: int, db: asyncpg.Pool, file: list, ):
     except KeyboardInterrupt:
         pass
     except (Exception, TypeError, ValueError, ) as error:
-        logging.info(f'm8binance error : {error}', )
+        print(f'm8binance error : {error}', )
     finally:
-        logging.info(f'Completion of process Binance, interspace: { {interspace} }', )  # You can '#'
+        print(f'Completion of process Binance, interspace: [ {interspace} ]', )  # You can '#'
         return ()

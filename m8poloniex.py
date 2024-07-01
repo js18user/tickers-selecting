@@ -4,7 +4,6 @@ import orjson as json
 import time
 import websockets
 
-from loguru import logger as logging
 from m8_sql_query import sql_insert_query
 
 """ Additional Information
@@ -40,8 +39,7 @@ async def m8poloniex(interspace: int, db: asyncpg.Pool, file: list):
         skip: str = '\n'
         data: dict = {"event": "subscribe", "channel": ["ticker"], "symbols": file, }
         tickers: dict = {}
-        logging.info(f'Start of process Poloniex exchange, interspace: { {interspace} }{skip}', )  # You can '#'
-        # logging.info(file)                                                                       # You can '#'
+        print(f'Start of process Poloniex exchange, interspace: { {interspace} }{skip}', )  # You can '#'                                                                       # You can '#'
         ping_time: float = time.time()
         while 1:
             async with websockets.connect(f"wss://ws.poloniex.com/ws/public", ) as wbs:
@@ -54,7 +52,7 @@ async def m8poloniex(interspace: int, db: asyncpg.Pool, file: list):
                 while (30 - (time.time() - ping_time)) >= interspace:
 
                     ticker: dict = json.loads(await wbs.recv())['data'][0]
-                    # logging.info(f'{ticker}, {skip}')                                         # You can '#'
+                    print(f'{ticker}, {skip}')                                         # You can '#'
                     ticker_number += 1
                     tickers[ticker[symbol]]: dict = (
                                                      exchange,
@@ -70,10 +68,10 @@ async def m8poloniex(interspace: int, db: asyncpg.Pool, file: list):
                             async with db.acquire() as con:
                                 async with con.transaction():
                                     await con.executemany(sql_insert_query, [*tickers.values()], )
-                            logging.info(f''
+                            print(f''
                                          f'Poloniex{skip}'                                           # You can '#'                                          
-                                         # f'{tickers}{skip}'                                        # You can '#'                        
-                                         # f' interspace is ---> ({interspace}){skip}'                 # You can '#'
+                                         f'{tickers}{skip}'                                          # You can '#'                        
+                                         f' interspace is ---> ({interspace}){skip}'                 # You can '#'
                                          f' number of tickers received  ---> {ticker_number}{skip}'  # You can '#'
                                          f'number of tickers inserted---> {len(tickers)}{skip}'      # You can '#'
                                          )
@@ -82,9 +80,9 @@ async def m8poloniex(interspace: int, db: asyncpg.Pool, file: list):
     except KeyboardInterrupt:
         pass
     except (Exception, TypeError, ValueError, ) as error:
-        logging.info(f'm8poloniex error: {error}', )
+        print(f'm8poloniex error: {error}', )
         pass
     finally:
-        logging.info(f'Completion of process Poloniex, interspace: { {interspace} }', )               # You can '#'
+        print(f'Completion of process Poloniex, interspace: [ {interspace} ]', )                     # You can '#'
         pass
         return ()

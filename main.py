@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
 """ ticker analysis Python v.3.10.9 PostgresSQL v.14.5  Websocket Binance Poloniex Async/await Asyncpg by js18user """
 import os
 import yaml
 import asyncio
-from loguru import logger as logging
 import asyncpg
 
 from m8_sql_query import sql_create_table_query
@@ -34,16 +34,16 @@ async def main():
                                         case False:
                                             self.__url = _m8_query['db']
                                         case _:
-                                            logging.info(f'No standard query for cloud_db')
+                                            print(f'No standard query for cloud_db')
                                             exit()
                                 case {}:
-                                    logging.info(f'No standard query')
+                                    print(f'No standard query')
                                     exit()
                         case _:
-                            logging.info(f'No standard query')
+                            print(f'No standard query')
                             exit()
                 case False:
-                    logging.info(f'No query')
+                    print(f'No query')
                     exit()
 
         async def db_init(self):
@@ -88,7 +88,7 @@ async def main():
     except KeyboardInterrupt:
         pass
     except (Exception, ValueError, TypeError, ) as error:
-        logging.info(f'main() error: {error}')
+        print(f'main() error: {error}')
     finally:
         pass
 try:
