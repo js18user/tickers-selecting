@@ -20,6 +20,7 @@ The task must run continuously and is completed by "Ctrl C"
 There can be several crypto currency exchanges and the processes must be parallel.
 
 List and functions of the presented scripts:
+- Dockerfile  no comment
 - m8bilance.py  this program to perform a task with cryptocurrency exchange Bilance
 - m8poloniex.py this program to perform a task with cryptocurrency exchange Poloniex
 - main.py       the main program
