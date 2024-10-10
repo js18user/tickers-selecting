@@ -59,7 +59,7 @@ async def m8binance(interspace: int, db: asyncpg.Pool, file: list, ):
 
                 ticker: dict = json.loads(await wbs.recv(), )
                 ticker_number += 1
-                print(ticker, )                                                        # You can '#'
+                # print(ticker, )                                                        # You can '#'
                 tickers[ticker[symbol]]: dict = (
                     exchange,
                     ticker[timestamp],
