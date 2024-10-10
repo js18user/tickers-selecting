@@ -39,11 +39,10 @@ This publication shows how to work with two cryptocurrency exchanges:
 
 In the working version, work with 11 cryptocurrency exchanges is implemented
 
-  docker build -t tickers:bp -f Dockerfile .
-
-  docker run tickers:bp
+- docker build -t tickers:bp -f Dockerfile .
+- docker run tickers:bp
 
 For a quick start from my personal public depository:
-
-   docker run js18user/exchange:bp
+- docker pull js18user/exchange:bp
+- docker run exchange:bp
 
