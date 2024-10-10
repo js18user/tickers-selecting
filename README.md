@@ -37,7 +37,7 @@ This publication shows how to work with two cryptocurrency exchanges:
 - Binance
 - Poloniex
 
-In the working version, work with 2 cryptocurrency exchanges is implemented
+In the working version, work with 11 cryptocurrency exchanges is implemented
 
 >docker build -t tickers:v10 -f Dockerfile .
 
