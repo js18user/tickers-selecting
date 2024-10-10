@@ -39,7 +39,7 @@ async def m8poloniex(interspace: int, db: asyncpg.Pool, file: list):
         skip: str = '\n'
         data: dict = {"event": "subscribe", "channel": ["ticker"], "symbols": file, }
         tickers: dict = {}
-        print(f'Start of process Poloniex exchange, interspace: { {interspace} }{skip}', )  # You can '#'                                                                       # You can '#'
+        print(f'Start of process Poloniex exchange, interspace: { {interspace} }{skip}', )  # You can '#'                 
         ping_time: float = time.time()
         while 1:
             async with websockets.connect(f"wss://ws.poloniex.com/ws/public", ) as wbs:
@@ -52,7 +52,7 @@ async def m8poloniex(interspace: int, db: asyncpg.Pool, file: list):
                 while (30 - (time.time() - ping_time)) >= interspace:
 
                     ticker: dict = json.loads(await wbs.recv())['data'][0]
-                    print(f'{ticker}, {skip}')                                         # You can '#'
+                    # print(f'{ticker}, {skip}')                                         # You can '#'
                     ticker_number += 1
                     tickers[ticker[symbol]]: dict = (
                                                      exchange,
