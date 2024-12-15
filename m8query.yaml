@@ -1,6 +1,6 @@
 cloud: True
 db: postgresql://postgres:aa4401@localhost:5432/fintech
-db_vps: postgresql://dyqbehwlykfjkc:8d3c812ab523bc9ea17bcbc6a5f20c4353a54db81479cf15a1fd083113a6bb1e@ec2-54-195-24-35.eu-west-1.compute.amazonaws.com:5432/d15bctjh2dhvtv
+db_vps: postgresql://gen_user:Bv(i%3D%26r5ILjTid@147.45.239.120:5432/default_db
 interspace: 8
 tickers:
 - btc_eur
