@@ -24,6 +24,8 @@ COPY m8poloniex.py .
 
 COPY main.py .
 
+EXPOSE 80
+
 CMD ["main.py" ]
 
 ENTRYPOINT ["python"]
