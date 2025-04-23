@@ -1,6 +1,6 @@
 cloud: True
 db: postgresql://postgres:aa4401@localhost:5432/fintech
-db_vps: postgresql://gen_user:Bv(i%3D%26r5ILjTid@147.45.239.120:5432/default_db
+db_vps: postgresql://neondb_owner:npg_GoPNxHe0pzm4@ep-rapid-glitter-a9y5kqy5-pooler.gwc.azure.neon.tech/neondb?sslmode=require
 interspace: 8
 tickers:
 - btc_eur
